@@ -1,8 +1,166 @@
-<html>
-  <head>    
-  </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeasureZero</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            display: flex;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #e6e6e6;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .header {
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 250px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 100px 40px 40px 40px; /* Adjust padding for fixed header */
+            flex-grow: 1;
+        }
+        .header a, .sidebar a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            display: block;
+            padding: 10px 0;
+            transition: color 0.3s ease;
+        }
+        .header a {
+            padding: 0 15px;
+            font-size: 1.2rem;
+            display: inline-block;
+        }
+        .sidebar a:hover, .header a:hover {
+            color: #0056b3;
+        }
+        .active-link {
+            color: #007BFF !important;
+            font-style: italic;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
 
-  <body>
-    M0
-  </body>
+    <div class="sidebar">
+        <h1>Navigation</h1>
+        <a href="#about" class="sidebar-link active-link">About</a>
+        <a href="#projects" class="sidebar-link">Projects</a>
+        <a href="#contact" class="sidebar-link">Contact</a>
+        <a href="#blog" class="sidebar-link">Blog</a>
+    </div>
+
+    <div class="header">
+        <a href="#about" class="header-link active-link">About</a>
+        <a href="#projects" class="header-link">Projects</a>
+        <a href="#contact" class="header-link">Contact</a>
+        <a href="#blog" class="header-link">Blog</a>
+    </div>
+
+    <div class="main-content">
+        <div id="about" class="content-section active">
+            <h2>About Us</h2>
+            <p>Welcome to our site! This is the about page content. We are a team of passionate developers...</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <div id="projects" class="content-section">
+            <h2>Our Projects</h2>
+            <p>Here you can find a list of our past and current projects. We're proud of the work we've done!</p>
+            <ul>
+                <li>Project A: A web application for data visualization.</li>
+                <li>Project B: A mobile app for local events.</li>
+                <li>Project C: An open-source library for developers.</li>
+            </ul>
+        </div>
+
+        <div id="contact" class="content-section">
+            <h2>Contact Information</h2>
+            <p>Get in touch with us. We'd love to hear from you!</p>
+            <address>
+                Email: <a href="mailto:info@example.com">info@example.com</a><br>
+                Phone: 555-1234
+            </address>
+        </div>
+
+        <div id="blog" class="content-section">
+            <h2>Latest Blog Posts</h2>
+            <p>Read our latest articles on technology, design, and more.</p>
+            <article>
+                <h3>The Future of Web Development</h3>
+                <p>Published on: July 30, 2025</p>
+                <p>An in-depth look at new trends and technologies...</p>
+            </article>
+            <article>
+                <h3>A Guide to Single-Page Applications</h3>
+                <p>Published on: July 20, 2025</p>
+                <p>Learn how to build dynamic sites like this one!</p>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all the links with the class "sidebar-link" and "header-link"
+            const allLinks = document.querySelectorAll('.sidebar-link, .header-link');
+
+            // Add a click event listener to each link
+            allLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    // Get the target section's ID from the href attribute
+                    const targetId = this.getAttribute('href').substring(1);
+
+                    // Deactivate all content sections and links
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.querySelectorAll('.sidebar-link, .header-link').forEach(otherLink => {
+                        otherLink.classList.remove('active-link');
+                    });
+
+                    // Activate the target content section
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+
+                    // Activate the clicked links (both in header and sidebar)
+                    document.querySelectorAll(`a[href="#${targetId}"]`).forEach(relatedLink => {
+                        relatedLink.classList.add('active-link');
+                    });
+                });
+            });
+        });
+    </script>
+</body>
 </html>
